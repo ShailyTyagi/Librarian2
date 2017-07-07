@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/F1"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/E1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Book Name"
+            />
+
+        <ImageButton
+            android:id="@+id/scan"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="320dp"
+            android:background="@drawable/camera"
+            android:elevation="5dp"
+            android:onClick="ScanCode" />
+    </FrameLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Author's name"
+        android:id="@+id/E2"
+        android:layout_below="@+id/F1"/>
+
+    <EditText
+        android:id="@+id/E4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/E3"
+        android:hint="Due after(no of days)"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/E5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/E4"
+        android:hint="Fine per day"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/E5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40px"
+        android:backgroundTint="#707eca"
+        android:elevation="3dp"
+        android:focusableInTouchMode="true"
+        android:fontFamily="cursive"
+        android:text="Save"
+        android:textSize="20sp"
+        android:id="@+id/Button"
+        android:onClick="onClick"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Use the camera icon to automatically fill in the book's name using bar code "
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/textView" />
+
+
+
+
+</RelativeLayout>
