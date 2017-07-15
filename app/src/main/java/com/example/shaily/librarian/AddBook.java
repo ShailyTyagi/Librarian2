@@ -3,6 +3,7 @@ package com.example.shaily.librarian;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -34,7 +37,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * Created by Shaily on 25-06-2017.
  */
 
-public class AddBook extends Activity implements View.OnClickListener{
+public class AddBook extends Activity implements View.OnClickListener , DatePickerDialog.OnDateSetListener{
 
     private ZXingScannerView scannerview;
     String isbn;
@@ -44,7 +47,8 @@ public class AddBook extends Activity implements View.OnClickListener{
     static EditText authorname,dueAfter,issueDate,Fine;
     public static String API_URL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
     public String API_KEY = "AIzaSyDJoXTU9Cb4aAE_2rO7ooQAOkvd6N9kSIY";
-
+    Calendar now;
+    DatePickerDialog dpd,dpd2;
     Context con;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +62,19 @@ public class AddBook extends Activity implements View.OnClickListener{
         issueDate=(EditText)findViewById(R.id.E3);
         dueAfter=(EditText)findViewById(R.id.E4);
         Fine=(EditText)findViewById(R.id.E5);
+
+        now = Calendar.getInstance();
+        dpd2=DatePickerDialog.newInstance(AddBook.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd = DatePickerDialog.newInstance(
+                AddBook.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
     }
 
 
@@ -74,6 +91,7 @@ public class AddBook extends Activity implements View.OnClickListener{
     @Override
     public void onPause() {
         super.onPause();
+        if(scannerview!=null)
         scannerview.stopCamera();
 
         setContentView(R.layout.add_book);
@@ -83,6 +101,7 @@ public class AddBook extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.Button){
+            Log.v("babbbb","helwwwwwwwwwww");
             authname=authorname.getText().toString();
             bname=bookname.getText().toString();
             fine=Fine.getText().toString();
@@ -92,6 +111,21 @@ public class AddBook extends Activity implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        if(view==dpd)
+        issueDate.setText(date);
+        if(view==dpd2)
+        dueAfter.setText(date);
+    }
+
+    public void LaunchDatePicker(View v){
+        if(v.getId()==R.id.E3)
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+        if(v.getId()==R.id.E4)
+            dpd2.show(getFragmentManager(), "Datepickerdialog");
+    }
     public class ZxingScannerResultHandler implements ZXingScannerView.ResultHandler {
 
 
@@ -205,6 +239,7 @@ public class AddBook extends Activity implements View.OnClickListener{
     SQLiteDatabase data;
 
             void SaveEntry() {
+                Log.v("hola","YESSSSSSSSSSSSS");
                 DbHelper db=new DbHelper(this);
 
                 data = db.getWritableDatabase();
@@ -217,7 +252,9 @@ public class AddBook extends Activity implements View.OnClickListener{
                 values.put(Contract.FeedEntry.COLUMN_NAME_DUE, dueafter);
                 values.put(Contract.FeedEntry.COLUMN_NAME_FINE_PER_DAY, fine);
                 long rowId = data.insert(Contract.FeedEntry.TABLE_NAME, null, values);
-
+                Toast.makeText(this,"Done!",Toast.LENGTH_SHORT);
+                Intent in =new Intent(AddBook.this,MainActivity.class);
+                startActivity(in);
             }
 
 

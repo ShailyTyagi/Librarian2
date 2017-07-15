@@ -31,14 +31,23 @@
         android:hint="Author's name"
         android:id="@+id/E2"
         android:layout_below="@+id/F1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Issue Date"
+        android:onClick="LaunchDatePicker"
+        android:focusableInTouchMode="false"
+        android:id="@+id/E3"
+        android:layout_below="@+id/E2"/>
 
     <EditText
         android:id="@+id/E4"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/E3"
-        android:hint="Due after(no of days)"
-        android:inputType="numberDecimal" />
+        android:onClick="LaunchDatePicker"
+        android:hint="Due after"
+         />
 
     <EditText
         android:id="@+id/E5"
@@ -56,12 +65,12 @@
         android:layout_marginTop="40px"
         android:backgroundTint="#707eca"
         android:elevation="3dp"
-        android:focusableInTouchMode="true"
+        android:focusableInTouchMode="false"
         android:fontFamily="cursive"
         android:text="Save"
         android:textSize="20sp"
         android:id="@+id/Button"
-        android:onClick="onClick"/>
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"

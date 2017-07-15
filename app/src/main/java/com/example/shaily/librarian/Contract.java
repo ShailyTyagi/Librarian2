@@ -12,7 +12,7 @@ public class Contract {
 
     /* Inner class that defines the table contents */
     public static class FeedEntry implements BaseColumns {
-        public static final String TABLE_NAME = "BookDb";
+        public static final String TABLE_NAME = "BookDatabase";
         public static final String COLUMN_NAME_Bname = "BookName";
         public static final String COLUMN_NAME_AUTHOR="Author";
         public static final String COLUMN_NAME_Issue = "IssuedOn";
